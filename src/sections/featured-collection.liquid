@@ -9,24 +9,26 @@
 <section class="featured-collection" data-section-id="{{ section.id }}" data-section-type="featured-collection">
   {%- assign collection = collections[section.settings.collection] -%}
 
-  <h2>{{ collection.title | escape }}</h2>
+  <h1>{{ collection.title | escape }}</h1>
 
-  <p>{{ collection.description }}</p>
+  
 
+  
+
+  <div class="main-carousel">
   {% for product in collection.products limit: 6 %}
     {% assign current_variant = product.selected_or_first_available_variant %}
-  
     <a href="{{ product.url | within: collection }}">
-      <div>
+      <div class="carousel-cell">
         {% if product.featured_image != blank %}
           {{ product.featured_image | img_url: 'large' | img_tag }}
         {% endif %}
         
-        <span js-ajax-cart="addToCart" data-variant-id="{{ current_variant.id }}" data-quantity="1">Add to cart</span>
+        <span js-ajax-cart="addToCart" data-variant-id="{{ current_variant.id }}" data-quantity="1" class="btn btn__secondary">Add to cart</span>
       </div>
 
       <div>
-        <p>{{ product.title | escape }}</p>
+        <h5>{{ product.title | escape }}</h5>
 
         <span>
           {% include 'product-price' %}
@@ -34,6 +36,9 @@
       </div>
     </a>
   {% endfor %}
+  
+  </div>
+  <button id="collection" class="btn btn__primary">View collection</button>
 </section>
 
 {% schema %}
